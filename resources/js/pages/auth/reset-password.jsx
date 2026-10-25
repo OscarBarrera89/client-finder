@@ -1,6 +1,6 @@
-import { useForm } from '@inertiajs/react';
 import Campo, { claseBoton } from '@/components/Campo';
 import PantallaAcceso from '@/components/PantallaAcceso';
+import { useForm } from '@inertiajs/react';
 
 export default function ResetPassword({ token, email }) {
     const { data, setData, post, processing, errors, reset } = useForm({

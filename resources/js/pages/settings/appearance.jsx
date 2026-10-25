@@ -1,6 +1,6 @@
+import LayoutAjustes from '@/components/LayoutAjustes';
 import { router, usePage } from '@inertiajs/react';
 import { Monitor, Moon, Sun } from 'lucide-react';
-import LayoutAjustes from '@/components/LayoutAjustes';
 
 const OPCIONES = [
     { valor: 'claro', label: 'Claro', Icono: Sun },
@@ -26,7 +26,7 @@ export default function Appearance() {
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
                     {OPCIONES.map(({ valor, label, Icono }) => (
                         <button
                             key={valor}
@@ -35,8 +35,8 @@ export default function Appearance() {
                             aria-pressed={temaActual === valor}
                             className={
                                 temaActual === valor
-                                    ? 'flex flex-col items-center gap-2 rounded-lg border-2 border-blue-800 dark:border-blue-400 bg-blue-50 dark:bg-blue-900/30 px-4 py-4 text-sm font-medium text-blue-900 dark:text-blue-200'
-                                    : 'flex flex-col items-center gap-2 rounded-lg border-2 border-gray-200 dark:border-gray-700 px-4 py-4 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
+                                    ? 'flex flex-col items-center gap-2 rounded-lg border-2 border-blue-800 bg-blue-50 px-4 py-4 text-sm font-medium text-blue-900 dark:border-blue-400 dark:bg-blue-900/30 dark:text-blue-200'
+                                    : 'flex flex-col items-center gap-2 rounded-lg border-2 border-gray-200 px-4 py-4 text-sm text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-700'
                             }
                         >
                             <Icono size={24} />

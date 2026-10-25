@@ -1,6 +1,6 @@
-import { useForm } from '@inertiajs/react';
 import Campo, { claseBoton } from '@/components/Campo';
 import PantallaAcceso from '@/components/PantallaAcceso';
+import { useForm } from '@inertiajs/react';
 
 export default function Login({ status }) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -18,7 +18,7 @@ export default function Login({ status }) {
 
     return (
         <PantallaAcceso titulo="Iniciar sesión">
-            {status && <p className="text-sm text-green-700 dark:text-green-400 text-center">{status}</p>}
+            {status && <p className="text-center text-sm text-green-700 dark:text-green-400">{status}</p>}
 
             <form onSubmit={handleSubmit} className="space-y-5">
                 <Campo
@@ -44,11 +44,7 @@ export default function Login({ status }) {
                 />
 
                 <label className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
-                    <input
-                        type="checkbox"
-                        checked={data.remember}
-                        onChange={(e) => setData('remember', e.target.checked)}
-                    />
+                    <input type="checkbox" checked={data.remember} onChange={(e) => setData('remember', e.target.checked)} />
                     Recordarme
                 </label>
 
@@ -56,7 +52,7 @@ export default function Login({ status }) {
                     {processing ? 'Entrando…' : 'Entrar'}
                 </button>
 
-                <p className="text-xs text-gray-500 dark:text-gray-400 text-center">
+                <p className="text-center text-xs text-gray-500 dark:text-gray-400">
                     ¿Has olvidado la contraseña? Pídele al administrador que te la cambie.
                 </p>
             </form>

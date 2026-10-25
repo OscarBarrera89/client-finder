@@ -22,7 +22,7 @@ class SearchController extends Controller
             return response()->json([
                 'success' => false,
                 'data' => [],
-                'message' => 'Por favor ingresa al menos 2 caracteres'
+                'message' => 'Por favor ingresa al menos 2 caracteres',
             ]);
         }
 
@@ -55,7 +55,7 @@ class SearchController extends Controller
             return response()->json([
                 'success' => false,
                 'data' => [],
-                'message' => 'Error en la búsqueda'
+                'message' => 'Error en la búsqueda',
             ], 500);
         }
     }

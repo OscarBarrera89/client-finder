@@ -1,6 +1,6 @@
-import { useForm, usePage } from '@inertiajs/react';
 import Campo, { claseBoton } from '@/components/Campo';
 import LayoutAjustes from '@/components/LayoutAjustes';
+import { useForm, usePage } from '@inertiajs/react';
 
 // La cuenta no se puede borrar desde aquí: solo el administrador puede desactivarla.
 export default function Profile() {

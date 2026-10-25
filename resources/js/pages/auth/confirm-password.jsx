@@ -1,6 +1,6 @@
-import { useForm } from '@inertiajs/react';
 import Campo, { claseBoton } from '@/components/Campo';
 import PantallaAcceso from '@/components/PantallaAcceso';
+import { useForm } from '@inertiajs/react';
 
 export default function ConfirmPassword() {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -15,10 +15,7 @@ export default function ConfirmPassword() {
     };
 
     return (
-        <PantallaAcceso
-            titulo="Confirma tu contraseña"
-            descripcion="Esta es una zona protegida. Confirma tu contraseña para continuar."
-        >
+        <PantallaAcceso titulo="Confirma tu contraseña" descripcion="Esta es una zona protegida. Confirma tu contraseña para continuar.">
             <form onSubmit={handleSubmit} className="space-y-5">
                 <Campo
                     id="password"

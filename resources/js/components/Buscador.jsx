@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import { Search } from 'lucide-react';
+import { useState } from 'react';
 
 export const TIPOS_BUSQUEDA = [
     { id: 'nombre', label: 'Nombre', placeholder: 'Busca por nombre del cliente...' },
@@ -41,10 +41,10 @@ export default function Buscador({ onSearch }) {
                         key={t.id}
                         type="button"
                         onClick={() => handleTipoChange(t.id)}
-                        className={`px-3 py-1.5 rounded-full text-sm font-medium transition border ${
+                        className={`rounded-full border px-3 py-1.5 text-sm font-medium transition ${
                             tipo === t.id
-                                ? 'bg-red-600 text-white border-red-600'
-                                : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 border-gray-200 dark:border-gray-700 hover:border-red-300 dark:hover:border-red-700'
+                                ? 'border-red-600 bg-red-600 text-white'
+                                : 'border-gray-200 bg-white text-gray-600 hover:border-red-300 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:border-red-700'
                         }`}
                     >
                         {t.label}
@@ -59,12 +59,12 @@ export default function Buscador({ onSearch }) {
                     value={query}
                     onChange={handleChange}
                     placeholder={tipoActual.placeholder}
-                    className="w-full pl-12 pr-12 py-4 text-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-2 border-gray-200 dark:border-gray-700 rounded-lg focus:outline-none focus:border-blue-800 dark:focus:border-blue-400 focus:ring-2 focus:ring-blue-100 dark:focus:ring-blue-900 transition"
+                    className="w-full rounded-lg border-2 border-gray-200 bg-white py-4 pr-12 pl-12 text-lg text-gray-900 transition focus:border-blue-800 focus:ring-2 focus:ring-blue-100 focus:outline-none dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:focus:border-blue-400 dark:focus:ring-blue-900"
                 />
                 {query && (
                     <button
                         onClick={handleClear}
-                        className="absolute right-4 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition"
+                        className="absolute right-4 text-gray-400 transition hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300"
                         aria-label="Limpiar búsqueda"
                     >
                         ✕

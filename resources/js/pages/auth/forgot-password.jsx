@@ -1,6 +1,6 @@
-import { Link, useForm } from '@inertiajs/react';
 import Campo, { claseBoton } from '@/components/Campo';
 import PantallaAcceso from '@/components/PantallaAcceso';
+import { Link, useForm } from '@inertiajs/react';
 
 export default function ForgotPassword({ status }) {
     const { data, setData, post, processing, errors } = useForm({
@@ -13,11 +13,8 @@ export default function ForgotPassword({ status }) {
     };
 
     return (
-        <PantallaAcceso
-            titulo="Recuperar contraseña"
-            descripcion="Introduce tu email y te enviaremos un enlace para cambiar la contraseña"
-        >
-            {status && <p className="text-sm text-green-700 dark:text-green-400 text-center">{status}</p>}
+        <PantallaAcceso titulo="Recuperar contraseña" descripcion="Introduce tu email y te enviaremos un enlace para cambiar la contraseña">
+            {status && <p className="text-center text-sm text-green-700 dark:text-green-400">{status}</p>}
 
             <form onSubmit={handleSubmit} className="space-y-5">
                 <Campo
@@ -36,8 +33,8 @@ export default function ForgotPassword({ status }) {
                     Enviar enlace
                 </button>
 
-                <p className="text-sm text-gray-500 dark:text-gray-400 text-center">
-                    <Link href="/login" className="text-blue-800 dark:text-blue-300 hover:underline">
+                <p className="text-center text-sm text-gray-500 dark:text-gray-400">
+                    <Link href="/login" className="text-blue-800 hover:underline dark:text-blue-300">
                         Volver a iniciar sesión
                     </Link>
                 </p>

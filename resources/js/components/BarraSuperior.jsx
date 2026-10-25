@@ -10,16 +10,16 @@ export default function BarraSuperior() {
     }
 
     return (
-        <header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-            <div className="container mx-auto px-4 py-3 flex items-center justify-between gap-4">
+        <header className="border-b border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
+            <div className="container mx-auto flex items-center justify-between gap-4 px-4 py-3">
                 <nav className="flex items-center gap-4 text-sm">
-                    <Link href="/" className="flex items-center gap-1 text-gray-700 dark:text-gray-300 hover:text-blue-800 dark:hover:text-blue-300">
+                    <Link href="/" className="flex items-center gap-1 text-gray-700 hover:text-blue-800 dark:text-gray-300 dark:hover:text-blue-300">
                         <Search size={16} /> Buscador
                     </Link>
                     {usuario.rol === 'admin' && (
                         <Link
                             href="/admin/usuarios"
-                            className="flex items-center gap-1 text-gray-700 dark:text-gray-300 hover:text-blue-800 dark:hover:text-blue-300"
+                            className="flex items-center gap-1 text-gray-700 hover:text-blue-800 dark:text-gray-300 dark:hover:text-blue-300"
                         >
                             <Users size={16} /> Usuarios
                         </Link>
@@ -29,7 +29,7 @@ export default function BarraSuperior() {
                 <div className="flex items-center gap-4 text-sm">
                     <Link
                         href="/settings/profile"
-                        className="flex items-center gap-1 text-gray-700 dark:text-gray-300 hover:text-blue-800 dark:hover:text-blue-300"
+                        className="flex items-center gap-1 text-gray-700 hover:text-blue-800 dark:text-gray-300 dark:hover:text-blue-300"
                         title="Mi cuenta"
                     >
                         <UserCog size={16} />
@@ -39,7 +39,7 @@ export default function BarraSuperior() {
                         href="/logout"
                         method="post"
                         as="button"
-                        className="flex items-center gap-1 text-gray-700 dark:text-gray-300 hover:text-red-700 dark:hover:text-red-400"
+                        className="flex items-center gap-1 text-gray-700 hover:text-red-700 dark:text-gray-300 dark:hover:text-red-400"
                     >
                         <LogOut size={16} /> Salir
                     </Link>

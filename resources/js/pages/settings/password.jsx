@@ -1,6 +1,6 @@
-import { useForm } from '@inertiajs/react';
 import Campo, { claseBoton } from '@/components/Campo';
 import LayoutAjustes from '@/components/LayoutAjustes';
+import { useForm } from '@inertiajs/react';
 
 export default function Password() {
     const { data, setData, errors, put, reset, processing, recentlySuccessful } = useForm({

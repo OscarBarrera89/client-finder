@@ -1,6 +1,6 @@
-import { Link, useForm } from '@inertiajs/react';
 import { claseBoton } from '@/components/Campo';
 import PantallaAcceso from '@/components/PantallaAcceso';
+import { Link, useForm } from '@inertiajs/react';
 
 export default function VerifyEmail({ status }) {
     const { post, processing } = useForm({});
@@ -11,12 +11,9 @@ export default function VerifyEmail({ status }) {
     };
 
     return (
-        <PantallaAcceso
-            titulo="Verifica tu email"
-            descripcion="Pulsa el enlace que te hemos enviado por email para verificar tu dirección."
-        >
+        <PantallaAcceso titulo="Verifica tu email" descripcion="Pulsa el enlace que te hemos enviado por email para verificar tu dirección.">
             {status === 'verification-link-sent' && (
-                <p className="text-sm text-green-700 dark:text-green-400 text-center">Te hemos enviado un nuevo enlace de verificación.</p>
+                <p className="text-center text-sm text-green-700 dark:text-green-400">Te hemos enviado un nuevo enlace de verificación.</p>
             )}
 
             <form onSubmit={handleSubmit} className="space-y-4 text-center">
@@ -24,7 +21,7 @@ export default function VerifyEmail({ status }) {
                     Reenviar email de verificación
                 </button>
 
-                <Link href="/logout" method="post" as="button" className="text-sm text-gray-600 dark:text-gray-300 hover:underline">
+                <Link href="/logout" method="post" as="button" className="text-sm text-gray-600 hover:underline dark:text-gray-300">
                     Cerrar sesión
                 </Link>
             </form>

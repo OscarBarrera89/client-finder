@@ -1,8 +1,8 @@
+import BarraSuperior from '@/components/BarraSuperior';
 import { useState } from 'react';
 import Buscador from '../components/Buscador';
-import ResultadoCliente from '../components/ResultadoCliente';
 import ClienteDetalle from '../components/ClienteDetalle';
-import BarraSuperior from '@/components/BarraSuperior';
+import ResultadoCliente from '../components/ResultadoCliente';
 import clientesDemo from '../data/clientesDemo';
 
 // TODO: la base de datos real todavía no está montada/importada.
@@ -24,13 +24,9 @@ function buscarEnDemo(query, tipo) {
             case 'email':
                 return cliente.email?.toLowerCase().includes(q);
             case 'poliza':
-                return (cliente.polizas || []).some((poliza) =>
-                    poliza.numero_poliza?.toLowerCase().includes(q)
-                );
+                return (cliente.polizas || []).some((poliza) => poliza.numero_poliza?.toLowerCase().includes(q));
             case 'matricula':
-                return (cliente.polizas || []).some((poliza) =>
-                    poliza.matricula?.toLowerCase().includes(q)
-                );
+                return (cliente.polizas || []).some((poliza) => poliza.matricula?.toLowerCase().includes(q));
             default:
                 return false;
         }
@@ -59,9 +55,7 @@ function BuscadorPage() {
             const encontrados = buscarEnDemo(query, tipo);
             setResultados(encontrados);
             setMensaje(
-                encontrados.length === 0
-                    ? 'No se encontraron resultados'
-                    : `Se encontraron ${encontrados.length} cliente(s) (datos de prueba)`
+                encontrados.length === 0 ? 'No se encontraron resultados' : `Se encontraron ${encontrados.length} cliente(s) (datos de prueba)`,
             );
         } finally {
             setLoading(false);
@@ -69,13 +63,13 @@ function BuscadorPage() {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-gray-50 dark:from-gray-900 to-gray-100 dark:to-gray-950">
+        <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-950">
             <BarraSuperior />
 
             {/* Search Section */}
             <div className="container mx-auto px-4 py-20">
-                <div className="max-w-2xl mx-auto">
-                    <div className="flex justify-center mb-8">
+                <div className="mx-auto max-w-2xl">
+                    <div className="mb-8 flex justify-center">
                         <img
                             src="/images/logo-cordoba-gestion.jpeg"
                             alt="Córdoba Gestión"
@@ -87,45 +81,32 @@ function BuscadorPage() {
 
                 {/* Mensaje de estado */}
                 {busqueda && mensaje && (
-                    <div className="max-w-2xl mx-auto mt-6">
-                        <p className="text-center text-gray-600 dark:text-gray-300 font-medium">
-                            {mensaje}
-                        </p>
+                    <div className="mx-auto mt-6 max-w-2xl">
+                        <p className="text-center font-medium text-gray-600 dark:text-gray-300">{mensaje}</p>
                     </div>
                 )}
 
                 {/* Resultados */}
-                <div className="max-w-4xl mx-auto mt-10">
+                <div className="mx-auto mt-10 max-w-4xl">
                     {clienteSeleccionado ? (
-                        <ClienteDetalle
-                            cliente={clienteSeleccionado}
-                            onVolver={() => setClienteSeleccionado(null)}
-                        />
+                        <ClienteDetalle cliente={clienteSeleccionado} onVolver={() => setClienteSeleccionado(null)} />
                     ) : loading ? (
                         <div className="flex justify-center py-12">
-                            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-800"></div>
+                            <div className="h-12 w-12 animate-spin rounded-full border-b-2 border-blue-800"></div>
                         </div>
                     ) : resultados.length > 0 ? (
                         <div className="grid gap-6">
                             {resultados.map((cliente) => (
-                                <ResultadoCliente
-                                    key={cliente.id}
-                                    cliente={cliente}
-                                    onVerDetalles={() => setClienteSeleccionado(cliente)}
-                                />
+                                <ResultadoCliente key={cliente.id} cliente={cliente} onVerDetalles={() => setClienteSeleccionado(cliente)} />
                             ))}
                         </div>
                     ) : busqueda ? (
-                        <div className="text-center py-12">
-                            <p className="text-gray-500 dark:text-gray-400 text-lg">
-                                No hay resultados para tu búsqueda
-                            </p>
+                        <div className="py-12 text-center">
+                            <p className="text-lg text-gray-500 dark:text-gray-400">No hay resultados para tu búsqueda</p>
                         </div>
                     ) : (
-                        <div className="text-center py-12">
-                            <p className="text-gray-400 dark:text-gray-500 text-lg">
-                                Comienza a buscar clientes y pólizas
-                            </p>
+                        <div className="py-12 text-center">
+                            <p className="text-lg text-gray-400 dark:text-gray-500">Comienza a buscar clientes y pólizas</p>
                         </div>
                     )}
                 </div>

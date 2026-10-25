@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { Head, router } from '@inertiajs/react';
-import { Search } from 'lucide-react';
 import BarraSuperior from '@/components/BarraSuperior';
 import { claseBoton } from '@/components/Campo';
+import { Head, router } from '@inertiajs/react';
+import { Search } from 'lucide-react';
+import { useState } from 'react';
 
 // Búsqueda en servidor (DashboardController). Es independiente del buscador de BuscadorPage.
 export default function Dashboard({ clientes = [], query = '' }) {
@@ -14,27 +14,27 @@ export default function Dashboard({ clientes = [], query = '' }) {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-gray-50 dark:from-gray-900 to-gray-100 dark:to-gray-950">
+        <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-950">
             <Head title="Dashboard" />
             <BarraSuperior />
 
-            <main className="container mx-auto px-4 py-10 max-w-4xl space-y-6">
-                <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-100 dark:border-gray-700 p-6">
+            <main className="container mx-auto max-w-4xl space-y-6 px-4 py-10">
+                <div className="rounded-lg border border-gray-100 bg-white p-6 shadow-md dark:border-gray-700 dark:bg-gray-800">
                     <h1 className="text-xl font-bold text-gray-800 dark:text-gray-100">Buscador de clientes</h1>
-                    <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">Busca por nombre, DNI, matrícula o número de póliza.</p>
+                    <p className="mb-4 text-sm text-gray-500 dark:text-gray-400">Busca por nombre, DNI, matrícula o número de póliza.</p>
 
                     <form onSubmit={handleSubmit} className="flex flex-col gap-2 sm:flex-row">
                         <label className="sr-only" htmlFor="cliente-search">
                             Buscar cliente
                         </label>
                         <div className="relative flex-1">
-                            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400 dark:text-gray-500" />
+                            <Search className="pointer-events-none absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-gray-400 dark:text-gray-500" />
                             <input
                                 id="cliente-search"
                                 name="q"
                                 value={busqueda}
                                 onChange={(e) => setBusqueda(e.target.value)}
-                                className="w-full rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-600 py-2 pl-10 pr-3 focus:border-blue-800 dark:focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-800 dark:focus:ring-blue-400"
+                                className="w-full rounded-md border border-gray-300 bg-white py-2 pr-3 pl-10 text-gray-900 focus:border-blue-800 focus:ring-1 focus:ring-blue-800 focus:outline-none dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100 dark:focus:border-blue-400 dark:focus:ring-blue-400"
                                 placeholder="Nombre, DNI, matrícula o póliza"
                             />
                         </div>
@@ -44,7 +44,7 @@ export default function Dashboard({ clientes = [], query = '' }) {
                     </form>
                 </div>
 
-                <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-100 dark:border-gray-700 p-6">
+                <div className="rounded-lg border border-gray-100 bg-white p-6 shadow-md dark:border-gray-700 dark:bg-gray-800">
                     <div className="mb-3 flex items-center justify-between">
                         <h2 className="text-lg font-bold text-gray-800 dark:text-gray-100">Resultados</h2>
                         <span className="text-sm text-gray-500 dark:text-gray-400">
@@ -53,13 +53,13 @@ export default function Dashboard({ clientes = [], query = '' }) {
                     </div>
 
                     {clientes.length === 0 ? (
-                        <p className="rounded-md border border-dashed border-gray-300 dark:border-gray-600 p-6 text-sm text-gray-500 dark:text-gray-400">
+                        <p className="rounded-md border border-dashed border-gray-300 p-6 text-sm text-gray-500 dark:border-gray-600 dark:text-gray-400">
                             No se encontraron clientes con ese criterio.
                         </p>
                     ) : (
                         <div className="space-y-3">
                             {clientes.map((cliente) => (
-                                <div key={cliente.id} className="rounded-md border border-gray-200 dark:border-gray-700 p-4">
+                                <div key={cliente.id} className="rounded-md border border-gray-200 p-4 dark:border-gray-700">
                                     <div className="flex flex-col gap-2 md:flex-row md:items-start md:justify-between">
                                         <div>
                                             <h3 className="font-semibold text-gray-900 dark:text-gray-100">{cliente.nombre}</h3>
@@ -73,7 +73,7 @@ export default function Dashboard({ clientes = [], query = '' }) {
                                     {cliente.polizas?.length > 0 ? (
                                         <div className="mt-3 grid gap-2 md:grid-cols-2">
                                             {cliente.polizas.map((poliza) => (
-                                                <div key={poliza.id} className="rounded-md bg-gray-50 dark:bg-gray-900 p-3 text-sm">
+                                                <div key={poliza.id} className="rounded-md bg-gray-50 p-3 text-sm dark:bg-gray-900">
                                                     <p className="font-medium text-gray-900 dark:text-gray-100">{poliza.numero_poliza}</p>
                                                     <p className="text-gray-600 dark:text-gray-300">
                                                         Matrícula: {poliza.matricula ?? 'Sin matrícula'}
