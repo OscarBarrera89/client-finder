@@ -1,5 +1,5 @@
 import { Link, usePage } from '@inertiajs/react';
-import { LogOut, Search, UserCog, Users } from 'lucide-react';
+import { FileSpreadsheet, LogOut, Search, UserCog, Users } from 'lucide-react';
 
 export default function BarraSuperior() {
     const { auth } = usePage().props;
@@ -22,6 +22,14 @@ export default function BarraSuperior() {
                             className="flex items-center gap-1 text-gray-700 hover:text-blue-800 dark:text-gray-300 dark:hover:text-blue-300"
                         >
                             <Users size={16} /> Usuarios
+                        </Link>
+                    )}
+                    {usuario.rol === 'admin' && (
+                        <Link
+                            href="/admin/importacion"
+                            className="flex items-center gap-1 text-gray-700 hover:text-blue-800 dark:text-gray-300 dark:hover:text-blue-300"
+                        >
+                            <FileSpreadsheet size={16} /> Importar Excel
                         </Link>
                     )}
                 </nav>
