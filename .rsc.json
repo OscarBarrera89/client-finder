@@ -42,7 +42,6 @@
   "agents": [
     "developer",
     "finding-verifier",
-    "python-reviewer",
     "react-build-resolver",
     "react-reviewer",
     "refuter-correctness",

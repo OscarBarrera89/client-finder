@@ -17,6 +17,7 @@ Background and rationale docs live in `02-DOCS/wiki/proyecto/` — they are more
 - `02-DOCS/wiki/proyecto/02-base-de-datos.md`
 - `02-DOCS/wiki/proyecto/03-decisiones.md`
 - `02-DOCS/wiki/proyecto/04-arquitectura.md`
+- `02-DOCS/wiki/proyecto/05-instalacion.md`
 - `02-DOCS/wiki/proyecto/pendientes.md` — open items, maintained by Claude Code
 
 ## Knowledge map
@@ -60,8 +61,8 @@ npm run format:check          # prettier --check resources/
 **Stack**: Laravel 12 backend, Inertia.js bridging to React (no client-side router — Inertia handles navigation), Tailwind CSS, SQLite. Started from the Laravel React starter kit, so auth/settings pages and `resources/js/components/ui/*` (shadcn/Radix) still exist as `.tsx`. Per `02-DOCS/wiki/proyecto/03-decisiones.md`, **new application code uses `.js`/`.jsx`, not `.ts`/`.tsx`** — `react-router` was deliberately removed since Inertia owns routing.
 
 **Domain model** (see `02-DOCS/wiki/proyecto/02-base-de-datos.md` / `02-DOCS/wiki/proyecto/03-decisiones.md` for the reasoning):
-- Tables use a `tbl_` prefix and Spanish names: `tbl_clientes`, `tbl_polizas`, `tbl_companias`, `tbl_ramos`, `tbl_tipo_vencimientos`, `tbl_estados`.
-- `Cliente` 1:N `Poliza` (`cliente_id`, cascade on delete). A `Poliza` also `belongsTo` `Compania` (restrict on delete), `Ramo` (restrict on delete), `TipoVencimiento` (null on delete), and `Estado`.
+- Tables use a `tbl_` prefix and Spanish names: `tbl_clientes`, `tbl_polizas`, `tbl_companias`, `tbl_ramos`, `tbl_tipos_vencimiento`, `tbl_estados`.
+- `Cliente` 1:N `Poliza` (`cliente_id`, cascade on delete). A `Poliza` also `belongsTo` `Compania` (restrict on delete), `Ramo` (restrict on delete), `TipoVencimiento` (nullable, null on delete), and `Estado` (nullable, null on delete). There is also `users` (Laravel table, no prefix) with `rol` (`admin`/`empleado`), `activo` and `tema`.
 - Every table carries `activo`, `created_at`/`updated_at`, and `deleted_at` (all models use `SoftDeletes`).
 - Model names are singular (`Cliente`, `Poliza`, `Compania`, `Ramo`), controllers end in `Controller`, and domain code/comments are written in Spanish.
 
@@ -71,7 +72,7 @@ npm run format:check          # prettier --check resources/
 
 There are **two separate search implementations** — this is by design, not an inconsistency to merge:
 
-1. **`SearchController@search`** (`app/Http/Controllers/SearchController.php`) is the public JSON search API, wired at `GET /api/search` (registered via the `api:` entry in `bootstrap/app.php`, pointing at `routes/api.php`). It supports `type=cliente` (nombre/email/teléfono/identificación) and `type=poliza` (numero_poliza/matrícula). It's the intended backend for the public `BuscadorPage.jsx` buscador — but `BuscadorPage.jsx` currently searches an in-memory demo array (`resources/js/data/clientesDemo.js`) instead of calling it, until real data is imported and someone wires up the `fetch('/api/search?...')` call.
+1. **`SearchController@search`** (`app/Http/Controllers/SearchController.php`) is the JSON search API, wired at `GET /api/search` (login required: `web` + `auth` middleware, rate-limited to 60/min by `throttle:busqueda`) (registered via the `api:` entry in `bootstrap/app.php`, pointing at `routes/api.php`). It supports `type=cliente` (nombre/email/teléfono/identificación) and `type=poliza` (numero_poliza/matrícula). It's the intended backend for the `BuscadorPage.jsx` buscador — but `BuscadorPage.jsx` currently searches an in-memory demo array (`resources/js/data/clientesDemo.js`) instead of calling it, until real data is imported and someone wires up the `fetch('/api/search?...')` call.
 2. **`DashboardController@index`** (`app/Http/Controllers/DashboardController.php`), wired at the `auth`-protected `GET /dashboard` in `routes/web.php`, does client/policy search server-side and returns it as Inertia props to the `dashboard` page. `tests/Feature/ClienteSearchTest.php` exercises this path, not `SearchController`.
 
 Don't consolidate these into one without the user explicitly asking for that — see Scope guardrail below.
@@ -92,7 +93,7 @@ This app handles real personal data (names, DNI/NIE/CIF, policy numbers). These 
 - Don't add a table or column without `activo`, timestamps, and `deleted_at` unless there's a stated reason not to.
 
 ### Search logic
-- `SearchController` (public JSON API, `/api/search`) and `DashboardController` (authenticated dashboard search) are both live and serve different pages — see "Two Search Implementations" above. Don't change one assuming it'll fix the other.
+- `SearchController` (JSON API, `/api/search`) and `DashboardController` (authenticated dashboard search) are both live and serve different pages — see "Two Search Implementations" above. Don't change one assuming it'll fix the other.
 - When real data replaces `resources/js/data/clientesDemo.js` in `BuscadorPage.jsx`, that's when it should start calling `/api/search` — flag it if asked to do that swap so scope stays clear.
 
 ### Frontend conventions
@@ -102,6 +103,7 @@ This app handles real personal data (names, DNI/NIE/CIF, policy numbers). These 
 
 ### Dependencies & tooling
 - Don't add new Composer or npm packages without stating why and getting confirmation first — check whether `composer.json`/`package.json` already covers the need.
+- rsc harness: refresh it with `npx @ericrisco/rsc@<catalogVersion> sync`, never `rsc onboard`. rsc 3.3.1 scans `vendor/` and mistakes this project for Python; CI fails if `python` reappears in `.rsc.json` skills/agents (fix: `rsc uninstall <id>`).
 - Run `vendor/bin/pest` after backend changes and `npm run lint` after frontend changes before considering a change done. Don't skip or comment out failing tests to "make it green."
 
 ### Data privacy

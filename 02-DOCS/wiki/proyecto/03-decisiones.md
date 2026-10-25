@@ -1,5 +1,22 @@
 # Decisiones del proyecto
 
+## Al empezar el proyecto
+
+JavaScript (`.js`/`.jsx`) en lugar de TypeScript para el código propio.
+
+Motivo:
+
+El proyecto nació del starter kit de Laravel con TypeScript, pero se decidió trabajar en JavaScript.
+Las primitivas de `resources/js/components/ui/` y otros restos del starter siguen en `.tsx`.
+
+---
+
+Sin router en el cliente (ni `react-router` ni `react-router-dom`).
+
+Motivo:
+
+Inertia ya gestiona la navegación: Laravel decide qué página se muestra.
+
 ## 10/07/2026
 
 Se utilizará SQLite como base de datos durante el desarrollo.
@@ -110,6 +127,18 @@ Motivo:
 
 El mínimo declarado es PHP 8.2 y el CI usa 8.2; sin esto Composer resuelve dependencias con el PHP
 local (8.5) y puede elegir versiones que no funcionan en 8.2.
+
+---
+
+Python no es un stack de este proyecto. Se quita el agente `python-reviewer` del arnés y el CI falla
+si `python` vuelve a aparecer en las skills o agentes de `.rsc.json`. Para actualizar el arnés se usa
+`rsc sync`, nunca `rsc onboard`.
+
+Motivo:
+
+rsc 3.3.1 no ignora `vendor/` al escanear: encuentra el `requirements.txt` de un paquete de Composer
+y cree que el proyecto es Python. `rsc sync` respeta lo declarado; `rsc onboard` vuelve a escanear y
+lo reintroduciría. El CI lo detecta aunque alguien lo ejecute por error.
 
 ## Convenciones
  - Las tablas llevarán el prefijo tbl_.

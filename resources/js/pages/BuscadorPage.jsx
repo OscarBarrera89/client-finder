@@ -8,8 +8,8 @@ import clientesDemo from '../data/clientesDemo';
 // TODO: la base de datos real todavía no está montada/importada.
 // Mientras tanto buscamos en `clientesDemo` (datos de prueba en memoria)
 // en vez de llamar a /api/search. Cuando haya datos reales, sustituir
-// buscarEnDemo() por la llamada fetch al backend (ver docs/ para el
-// estado de SearchController vs DashboardController).
+// buscarEnDemo() por la llamada fetch al backend (ver
+// 02-DOCS/wiki/proyecto/04-arquitectura.md, "Las dos búsquedas").
 function buscarEnDemo(query, tipo) {
     const q = query.toLowerCase();
 

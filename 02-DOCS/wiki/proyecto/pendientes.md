@@ -86,10 +86,11 @@ Bloqueado por:
 - Instalado el 25/10/2026 para Claude Code (flujo: ramas + PR; `main` cerrado para el agente).
   Desactivados: knowledge-sync, permisos git automáticos y auto-update (`.rsc/.no-auto-update`).
   Añadidas skills `laravel` y `php`.
-- Fallo de rsc: detecta Python por `vendor/mockery/.../requirements.txt`. Skill `python` quitada;
-  el agente `python-reviewer` queda (ligado al plan). Un `rsc sync` futuro podría volver a instalar
-  la skill `python`. Impacto bajo: no entra en git (está en `.gitignore`) y solo ocupa contexto y
-  puede activarse por error; si vuelve, `rsc uninstall python`.
+- [x] Fallo de rsc (detecta Python por `vendor/mockery/.../requirements.txt`) resuelto en este
+  proyecto (25/10/2026): skill `python` y agente `python-reviewer` quitados, y el CI falla si
+  vuelven a `.rsc.json`. Actualizar el arnés con `rsc sync`, nunca `rsc onboard`.
+- [ ] Avisar del fallo al autor de rsc (no ignora `vendor/` ni reconoce `composer.json`), para
+  que no pase en los demás proyectos PHP. Pendiente de que el usuario lo autorice.
 - [x] Unificar documentación: `docs/` movido a `02-DOCS/wiki/proyecto/` (25/10/2026).
 - [x] Constitución v1.0.0 ratificada (25/10/2026): `02-DOCS/wiki/sdd/constitution.md`.
 - [x] Quitado el paquete `bootstrap` (sin uso; los estilos son Tailwind).
@@ -97,6 +98,7 @@ Bloqueado por:
   (25/10/2026).
 - [x] Rama subida y pull request abierto: https://github.com/OscarBarrera89/client-finder/pull/1
 - [x] Pull request #1 fusionado en `main` (25/10/2026).
+- [x] Wiki auditada contra el código y corregida; quitado `react-router-dom` sin uso (25/10/2026).
 - [x] CI en GitHub Actions: calidad + tests con SQLite, MySQL 8.0 y MariaDB 10.11 (25/10/2026).
 - [x] Corregido el orden de la migración de pólizas (fallaba en MySQL/MariaDB).
 - [x] Rutas de páginas de Inertia en minúsculas (los tests fallaban en Linux).
