@@ -100,6 +100,7 @@ Bloqueado por:
 - [x] Pull request #1 fusionado en `main` (25/10/2026).
 - [x] CI en GitHub Actions: calidad + tests con SQLite, MySQL 8.0 y MariaDB 10.11 (25/10/2026).
 - [x] Corregido el orden de la migración de pólizas (fallaba en MySQL/MariaDB).
+- [x] Rutas de páginas de Inertia en minúsculas (los tests fallaban en Linux).
 
 ## Hecho
 

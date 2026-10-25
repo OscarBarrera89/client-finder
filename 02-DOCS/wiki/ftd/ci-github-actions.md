@@ -26,16 +26,23 @@ Fuera:
 
 ## Checklist
 
-- [ ] Migración renombrada — prueba: `migrate:status` local sin pendientes y pólizas tras estados.
-- [ ] Ciclo de migraciones en SQLite limpio — prueba: migrate, reset y migrate en un archivo temporal.
-- [ ] Comprobaciones locales — prueba: Pest, Pint, ESLint, Prettier y build en verde.
-- [ ] CI en verde en GitHub en los 4 jobs — prueba: `gh pr checks`.
+- [x] Migración renombrada — prueba: `migrate:status` local sin pendientes y pólizas tras estados.
+- [x] Ciclo de migraciones en SQLite limpio — prueba: migrate, reset y migrate en un archivo temporal.
+- [x] Comprobaciones locales — prueba: Pest, Pint, ESLint, Prettier y build en verde.
+- [x] CI en verde en GitHub en los 4 jobs — prueba: `gh pr checks`.
 - [ ] PR fusionado — prueba: `gh pr view` en estado MERGED.
 
 ## Evidence
 
-_(se rellena al completar cada tarea)_
+- Local: `migrate:status` muestra 2026_07_12_153328_create_polizas_table después de estados, "Nothing to migrate".
+- Ciclo en SQLite temporal: migrate, reset y migrate sin errores.
+- Local: Pest 53 passed (229 assertions); Pint, ESLint, Prettier y build ok.
+- Primer CI (run 40211817683): Calidad ok, los 3 jobs de tests fallaron. Causa: Inertia buscaba las
+  páginas en js/Pages y Linux distingue mayúsculas (Windows no). Arreglado en f8bdb42 publicando
+  config/inertia.php con js/pages.
+- Segundo CI (run 40212038199): los 4 jobs en verde; en MySQL y MariaDB create_polizas_table DONE
+  tres veces (migrate, reset, migrate) y "Tests: 53 passed (229 assertions)".
 
 ## Next
 
-Renombrar la migración de pólizas.
+Fusionar el PR #2 cuando el CI esté en verde y actualizar main en local.
