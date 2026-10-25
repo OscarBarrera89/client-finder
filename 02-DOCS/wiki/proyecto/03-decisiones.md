@@ -19,6 +19,56 @@ Motivo:
 
 Un cliente puede tener varias pólizas.
 
+## 25/10/2026
+
+Se instala el arnés rsc (rsc-harness 3.3.1) para Claude Code, con flujo de ramas y pull request.
+
+Motivo:
+
+- Que el agente tenga memoria del proyecto, reglas fijas y un método para cada cambio.
+- Se desactivan la sincronización automática de documentación, los permisos de git sin preguntar
+  y la autoactualización: la app maneja datos personales y cada commit/push debe pasar por el usuario.
+
+---
+
+La documentación de `docs/` se mueve a `02-DOCS/wiki/proyecto/`.
+
+Motivo:
+
+Una sola carpeta de documentación, la que leen las skills de rsc.
+
+---
+
+Se ratifica la constitución v1.0.0 (`02-DOCS/wiki/sdd/constitution.md`).
+
+Motivo:
+
+Fijar por escrito las reglas no negociables antes de la primera feature con SDD.
+
+---
+
+Altas y ediciones de pólizas, clientes y catálogos: en principio, todos los usuarios (admin y empleado).
+
+Motivo:
+
+Decisión del usuario. Puede cambiar más adelante.
+
+---
+
+Los estilos son Tailwind CSS 4. Se quita el paquete `bootstrap`, que estaba instalado sin usarse.
+
+Motivo:
+
+Todo el frontend ya usa Tailwind; tener los dos confundía la documentación.
+
+---
+
+Pint no formatea `database/migrations` (`pint.json`).
+
+Motivo:
+
+Una migración ya aplicada no se edita (constitución, principio 12), ni siquiera por formato.
+
 ## Convenciones
  - Las tablas llevarán el prefijo tbl_.
  - Los modelos estarán en singular (Cliente, Poliza, Compania, Ramo).

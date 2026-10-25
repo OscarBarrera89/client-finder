@@ -25,4 +25,4 @@ Laravel 12
 
 ## Frontend
 
-React + Bootstrap
+React 19 + Inertia 2 + Tailwind CSS 4 (Vite)
