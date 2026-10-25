@@ -32,6 +32,7 @@ Documentos de feature (vía rápida).
 |---------|---------|---------|
 | [Arnés rsc y documentación](ftd/arnes-rsc-y-documentacion.md) | Instalación del arnés, constitución, docs unificados y commits | 2026-10-25 |
 | [CI en GitHub Actions](ftd/ci-github-actions.md) | Tests con SQLite, MySQL y MariaDB en cada PR; orden de migraciones corregido | 2026-10-25 |
+| [Actualizar dependencias](ftd/actualizar-dependencias.md) | composer update y npm audit fix: 0 avisos; prueba del importador en navegador | 2026-10-25 |
 
 ## harness
 
