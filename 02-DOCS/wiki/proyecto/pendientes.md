@@ -67,6 +67,13 @@ Bloqueado por:
 
 - Se puede hacer. Falta el Excel terminado.
 - Necesario: fila de encabezados + una fila de ejemplo con datos INVENTADOS.
+- Estado de la BD (25/10/2026): el esquema cubre todas las columnas documentadas del Excel. El
+  orden de migraciones ya funciona en MySQL/MariaDB (ver decisiones). Falta el importador, que debe:
+  agrupar filas por DNI (un cliente = varias pólizas), normalizar el DNI (mayúsculas, sin espacios
+  ni guiones), crear compañías y ramos a partir del nombre (exigen `codigo` único) y convertir las
+  fechas de Excel. Se puede programar ya con una fila inventada.
+- Orden recomendado: importador probado con datos inventados → hosting + subdominio (no hace falta
+  comprar dominio) → importar el Excel real en el servidor.
 - Por decidir: CSV (sin paquetes nuevos) o .xlsx directo (requiere `phpoffice/phpspreadsheet`, con
   confirmación); comando o botón en la pantalla del admin.
 
@@ -90,7 +97,9 @@ Bloqueado por:
 - [x] Commits del arnés y del trabajo pendiente en la rama `chore/arnes-rsc-y-documentacion`
   (25/10/2026).
 - [x] Rama subida y pull request abierto: https://github.com/OscarBarrera89/client-finder/pull/1
-- [ ] Revisar y fusionar el pull request #1 en `main`.
+- [x] Pull request #1 fusionado en `main` (25/10/2026).
+- [x] CI en GitHub Actions: calidad + tests con SQLite, MySQL 8.0 y MariaDB 10.11 (25/10/2026).
+- [x] Corregido el orden de la migración de pólizas (fallaba en MySQL/MariaDB).
 
 ## Hecho
 
