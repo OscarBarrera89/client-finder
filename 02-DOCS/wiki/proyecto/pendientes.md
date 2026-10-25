@@ -72,7 +72,7 @@ Bloqueado por:
 - [x] Medido con 5.000 filas inventadas: simulación 0,9 s, importación 4,6 s, 65 MB.
 - [ ] Falta el Excel terminado. Cuando esté: comprobar que sus cabeceras coinciden con las que se
   reconocen y probar con una copia en el servidor.
-- [ ] Probar la página en el navegador (los tests cubren el servidor, no la pantalla).
+- [x] Probada en el navegador con datos inventados (25/10/2026). Pendiente: corregir plurales.
 - Orden recomendado: hosting + subdominio (no hace falta comprar dominio) → importar el Excel real
   en el servidor.
 
@@ -101,11 +101,10 @@ Bloqueado por:
 - [x] Corregido el orden de la migración de pólizas (fallaba en MySQL/MariaDB).
 - [x] Rutas de páginas de Inertia en minúsculas (los tests fallaban en Linux).
 
-## 7. Seguridad de dependencias `[ ]` — PRIORIDAD ALTA
+## 7. Seguridad de dependencias `[x]`
 
-- `composer audit` (25/10/2026): 24 avisos en 6 paquetes. Críticos/altos en `laravel/framework`,
-  `guzzlehttp/guzzle` y `league/commonmark`. Resolver con `composer update` en una rama propia,
-  con el CI, antes de subir datos reales al servidor.
+- [x] 25/10/2026: `composer update` y `npm audit fix` → 0 avisos en Composer y 0 en npm. Repetir
+  `composer audit` y `npm audit` periódicamente (el CI no lo hace todavía).
 
 ## Hecho
 
