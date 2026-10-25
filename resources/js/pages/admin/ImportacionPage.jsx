@@ -6,6 +6,9 @@ import { useMemo, useState } from 'react';
 
 const NOMBRES_CAMPO = { nombre: 'Nombre', telefono: 'Teléfono', email: 'Email', direccion: 'Dirección' };
 
+/** "1 póliza nueva" / "3 pólizas nuevas". */
+const cantidad = (numero, singular, plural) => `${numero} ${numero === 1 ? singular : plural}`;
+
 const claseBotonSecundario =
     'rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700';
 
@@ -145,8 +148,9 @@ function TarjetaCliente({ cliente, aceptado, onCambiar }) {
                 <div className="flex-1">
                     <p className="font-medium text-gray-800 dark:text-gray-100">{cliente.nombre}</p>
                     <p className="text-sm text-gray-500 dark:text-gray-400">
-                        {cliente.identificacion} · {cliente.polizas_nuevas.length} pólizas nuevas
-                        {existente && ` · ${cliente.polizas_coincidentes.length} coincidentes · ${cliente.diferencias.length} datos distintos`}
+                        {cliente.identificacion} · {cantidad(cliente.polizas_nuevas.length, 'póliza nueva', 'pólizas nuevas')}
+                        {existente &&
+                            ` · ${cantidad(cliente.polizas_coincidentes.length, 'coincidente', 'coincidentes')} · ${cantidad(cliente.diferencias.length, 'dato distinto', 'datos distintos')}`}
                     </p>
                 </div>
                 <span
@@ -281,7 +285,7 @@ function Simulacion({ simulacion, huella }) {
 
             <div className="flex flex-wrap gap-3">
                 <button type="button" onClick={confirmar} disabled={hayErrores || aceptados.size === 0 || enviando} className={claseBoton}>
-                    {enviando ? 'Importando…' : `Confirmar importación (${aceptados.size} clientes)`}
+                    {enviando ? 'Importando…' : `Confirmar importación (${cantidad(aceptados.size, 'cliente', 'clientes')})`}
                 </button>
                 <button type="button" onClick={cancelar} disabled={enviando} className={claseBotonSecundario}>
                     Cancelar
