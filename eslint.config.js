@@ -7,6 +7,10 @@ import typescript from 'typescript-eslint';
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
+    // El código propio de la app está en .jsx (ver 02-DOCS/wiki/proyecto/03-decisiones.md); sin esto ESLint lo ignora
+    {
+        files: ['**/*.jsx'],
+    },
     js.configs.recommended,
     ...typescript.configs.recommended,
     {
@@ -38,7 +42,7 @@ export default [
         },
     },
     {
-        ignores: ['vendor', 'node_modules', 'public', 'bootstrap/ssr', 'tailwind.config.js'],
+        ignores: ['vendor', 'node_modules', 'public', 'bootstrap/ssr', 'tailwind.config.js', '.claude', '.rsc', '.worktrees', '01-TOOLS', '02-DOCS'],
     },
     prettier, // Turn off all rules that might conflict with Prettier
 ];

@@ -1,0 +1,41 @@
+# Knowledge Base Index
+
+> Directory listing of `02-DOCS/wiki/`. No frontmatter (OKF reserved file). Links are relative.
+
+## proyecto
+
+Documentación de Client Finder: contexto, base de datos, decisiones, arquitectura y pendientes.
+
+| Article | Summary | Updated |
+|---------|---------|---------|
+| [Documentación general](proyecto/01-client-finder-documentacion.md) | Contexto, objetivos y funcionamiento de la aplicación | 2026-10-25 |
+| [Base de datos](proyecto/02-base-de-datos.md) | Tablas `tbl_*`, campos y relaciones | 2026-10-25 |
+| [Decisiones](proyecto/03-decisiones.md) | Decisiones del proyecto con su motivo, y convenciones | 2026-10-25 |
+| [Arquitectura](proyecto/04-arquitectura.md) | Estructura Laravel + Inertia + React | 2026-10-25 |
+| [Pendientes](proyecto/pendientes.md) | Lo pendiente, lo decidido y lo hecho | 2026-10-25 |
+
+## sdd
+
+Cadena spec-driven de rsc.
+
+| Article | Summary | Updated |
+|---------|---------|---------|
+| [Constitución](sdd/constitution.md) | Principios no negociables del proyecto | 2026-10-25 |
+
+## ftd
+
+Documentos de feature (vía rápida).
+
+| Article | Summary | Updated |
+|---------|---------|---------|
+| [Arnés rsc y documentación](ftd/arnes-rsc-y-documentacion.md) | Instalación del arnés, constitución, docs unificados y commits | 2026-10-25 |
+
+## harness
+
+Instalación y perfil del arnés rsc.
+
+| Article | Summary | Updated |
+|---------|---------|---------|
+| [Perfil de usuario](harness/user-profile.md) | Registro y preferencias del usuario | 2026-10-25 |
+| [Plan de instalación](harness/installation-plan.md) | Plan aceptado de rsc onboard | 2026-10-25 |
+| [Decisiones del arnés](harness/decisions.md) | Decisiones de instalación | 2026-10-25 |
