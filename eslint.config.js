@@ -7,6 +7,10 @@ import typescript from 'typescript-eslint';
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
+    // El código propio de la app está en .jsx (ver 02-DOCS/wiki/proyecto/03-decisiones.md); sin esto ESLint lo ignora
+    {
+        files: ['**/*.jsx'],
+    },
     js.configs.recommended,
     ...typescript.configs.recommended,
     {
