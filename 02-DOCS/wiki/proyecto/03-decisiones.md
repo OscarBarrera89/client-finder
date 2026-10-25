@@ -91,6 +91,26 @@ Motivo:
 Comprobar antes de fusionar que todo funciona también con los motores del servidor. El repositorio
 es privado en plan gratuito: GitHub no puede bloquear el merge, así que la regla la aplica el agente.
 
+---
+
+Importador de Excel (.xlsx) en el panel de admin con OpenSpout 4. Simulación previa, aceptar o
+descartar por cliente y guardado todo o nada. Clientes existentes: se actualizan sus datos con los
+del Excel (una celda vacía no borra) y se añaden las pólizas que no tenían.
+
+Motivo:
+
+Decidido por Oscar. OpenSpout lee fila a fila con poca memoria (hosting compartido). Spec y plan en
+`02-DOCS/wiki/sdd/specs/importador-excel.md` y `02-DOCS/wiki/sdd/plans/importador-excel.md`.
+
+---
+
+`composer.json` fija `config.platform.php = 8.2.0`.
+
+Motivo:
+
+El mínimo declarado es PHP 8.2 y el CI usa 8.2; sin esto Composer resuelve dependencias con el PHP
+local (8.5) y puede elegir versiones que no funcionan en 8.2.
+
 ## Convenciones
  - Las tablas llevarán el prefijo tbl_.
  - Los modelos estarán en singular (Cliente, Poliza, Compania, Ramo).

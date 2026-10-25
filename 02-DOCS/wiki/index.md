@@ -21,6 +21,8 @@ Cadena spec-driven de rsc.
 | Article | Summary | Updated |
 |---------|---------|---------|
 | [Constitución](sdd/constitution.md) | Principios no negociables del proyecto | 2026-10-25 |
+| [Spec — Importador Excel](sdd/specs/importador-excel.md) | Qué hace el importador .xlsx de clientes y pólizas | 2026-10-25 |
+| [Plan — Importador Excel](sdd/plans/importador-excel.md) | Cómo se construye el importador, tareas y evidencia | 2026-10-25 |
 
 ## ftd
 
