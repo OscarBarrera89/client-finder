@@ -35,6 +35,10 @@ jobs:
                   }
                   "
 
+            # La fábrica de software leerá pendientes.md: debe seguir el formato común v1
+            - name: Formato de pendientes
+              run: node .github/scripts/comprobar-pendientes.mjs
+
             - uses: shivammathur/setup-php@v2
               with:
                   php-version: '8.2'

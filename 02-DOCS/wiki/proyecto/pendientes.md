@@ -2,7 +2,7 @@
 proyecto: client-finder
 prefijo: CF
 formato: 1
-actualizado: 2026-10-25
+actualizado: 2026-10-26
 ---
 # Pendientes — Client Finder
 
@@ -120,7 +120,7 @@ El `.env` local usa `SESSION_DRIVER=cookie`. Recomendado: `database` (es lo que 
 - tipo: harness
 - bloqueado-por: —
 - doc: `02-DOCS/wiki/ftd/auditoria-wiki.md`
-- actualizado: 2026-10-25
+- actualizado: 2026-10-26
 
 rsc-harness 3.3.1 instalado el 2026-10-25 para Claude Code (flujo: ramas + PR; `main` cerrado para
 el agente). Desactivados: knowledge-sync, permisos git automáticos y auto-update. Añadidas las skills
@@ -130,7 +130,10 @@ Fallo de rsc: no ignora `vendor/` al escanear y confunde el proyecto con Python.
 (skill `python` y agente `python-reviewer` quitados; el CI falla si vuelven). Actualizar el arnés con
 `rsc sync`, nunca `rsc onboard`.
 
-- [ ] El usuario publica el aviso del fallo en github.com/ericrisco/rsc-harness/issues.
+- [x] Aviso publicado por el usuario (2026-10-25):
+  https://github.com/ericrisco/rsc-harness/issues/325
+- [ ] Esperar el arreglo del autor. Cuando salga una versión con el arreglo, actualizar con
+  `rsc sync` a esa versión (el paso del CI que vigila Python se mantiene).
 
 ## CF-008 · Auditoría periódica de dependencias
 
@@ -153,6 +156,7 @@ Repetir `composer audit` y `npm audit` periódicamente. El CI no lo hace todaví
 - CF-011 · CI en GitHub Actions — 2026-10-25 — calidad + tests con SQLite, MySQL 8.0 y MariaDB 10.11; corregido el orden de la migración de pólizas; rutas de Inertia en minúsculas. Doc: `02-DOCS/wiki/ftd/ci-github-actions.md`
 - CF-012 · Auditoría de la wiki — 2026-10-25 — wiki corregida contra el código; quitado `react-router-dom`; Python fuera del arnés y vigilado en el CI. Doc: `02-DOCS/wiki/ftd/auditoria-wiki.md`
 - CF-013 · Formato común de pendientes — 2026-10-25 — este archivo pasa al formato v1. Doc: `02-DOCS/wiki/ftd/formato-pendientes.md`
+- CF-014 · Comprobador de pendientes en el CI — 2026-10-26 — el CI falla si este archivo no sigue el formato v1. Doc: `02-DOCS/wiki/ftd/comprobar-pendientes.md`
 
 Antes del formato:
 

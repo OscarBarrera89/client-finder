@@ -36,6 +36,7 @@ Documentos de feature (vía rápida).
 | [Actualizar dependencias](ftd/actualizar-dependencias.md) | composer update y npm audit fix: 0 avisos; prueba del importador en navegador | 2026-10-25 |
 | [Auditoría de la wiki](ftd/auditoria-wiki.md) | Wiki corregida contra el código; Python fuera del arnés y vigilado en el CI | 2026-10-25 |
 | [Formato de pendientes](ftd/formato-pendientes.md) | Norma común de pendientes y paso de `pendientes.md` al formato v1 | 2026-10-25 |
+| [Comprobador de pendientes](ftd/comprobar-pendientes.md) | El CI falla si `pendientes.md` no sigue el formato v1 | 2026-10-26 |
 
 ## harness
 
@@ -46,4 +47,4 @@ Instalación y perfil del arnés rsc.
 | [Perfil de usuario](harness/user-profile.md) | Registro y preferencias del usuario | 2026-10-25 |
 | [Plan de instalación](harness/installation-plan.md) | Plan aceptado de rsc onboard | 2026-10-25 |
 | [Decisiones del arnés](harness/decisions.md) | Decisiones de instalación | 2026-10-25 |
-| [Formato de pendientes](harness/formato-pendientes.md) | Norma común (v1) de `pendientes.md` para todos los proyectos | 2026-10-25 |
+| [Formato de pendientes](harness/formato-pendientes.md) | Norma común (v1) de `pendientes.md` y su comprobación en el CI | 2026-10-26 |
