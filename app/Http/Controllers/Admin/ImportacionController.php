@@ -114,11 +114,17 @@ class ImportacionController extends Controller
         $this->olvidar($request);
 
         return to_route('admin.importacion.index')->with('exito', sprintf(
-            'Importación completada: %d clientes nuevos, %d actualizados y %d pólizas nuevas.',
-            $totales['clientes_creados'],
-            $totales['clientes_actualizados'],
-            $totales['polizas_creadas'],
+            'Importación completada: %s, %s y %s.',
+            $this->cantidad($totales['clientes_creados'], 'cliente nuevo', 'clientes nuevos'),
+            $this->cantidad($totales['clientes_actualizados'], 'actualizado', 'actualizados'),
+            $this->cantidad($totales['polizas_creadas'], 'póliza nueva', 'pólizas nuevas'),
         ));
+    }
+
+    /** "1 póliza nueva" / "3 pólizas nuevas". */
+    private function cantidad(int $numero, string $singular, string $plural): string
+    {
+        return $numero.' '.($numero === 1 ? $singular : $plural);
     }
 
     public function cancelar(Request $request): RedirectResponse

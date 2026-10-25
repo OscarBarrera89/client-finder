@@ -61,7 +61,7 @@ test('confirming saves the accepted clients and deletes the file', function () {
 
     $this->post('/admin/importacion/confirmar', ['aceptados' => ['00000000T'], 'huella' => $huella])
         ->assertRedirect('/admin/importacion')
-        ->assertSessionHas('exito');
+        ->assertSessionHas('exito', 'Importación completada: 1 cliente nuevo, 0 actualizados y 1 póliza nueva.');
 
     expect(Cliente::count())->toBe(1)
         ->and(Poliza::count())->toBe(1)

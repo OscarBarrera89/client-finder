@@ -72,7 +72,7 @@ Bloqueado por:
 - [x] Medido con 5.000 filas inventadas: simulación 0,9 s, importación 4,6 s, 65 MB.
 - [ ] Falta el Excel terminado. Cuando esté: comprobar que sus cabeceras coinciden con las que se
   reconocen y probar con una copia en el servidor.
-- [x] Probada en el navegador con datos inventados (25/10/2026). Pendiente: corregir plurales.
+- [x] Probada en el navegador con datos inventados y plurales corregidos (25/10/2026).
 - Orden recomendado: hosting + subdominio (no hace falta comprar dominio) → importar el Excel real
   en el servidor.
 
