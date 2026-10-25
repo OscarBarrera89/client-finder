@@ -85,7 +85,23 @@ Después de los campos, texto libre y, si hace falta, subtareas con `- [ ]` / `-
 - **Nada de datos personales** (nombres, DNI, pólizas reales). Este archivo lo leerá la fábrica.
 - **Fechas** siempre `AAAA-MM-DD`.
 - Al cambiar cualquier ficha, actualizar su `actualizado` y el de la cabecera.
+- `doc` debe apuntar a un archivo que exista, con ruta desde la raíz del repositorio.
+- `bloqueado-por` solo puede citar códigos que existan (abiertos o en `## Hecho`).
+
+## Comprobación automática
+
+`.github/scripts/comprobar-pendientes.mjs` revisa todo lo anterior y el CI falla si algo no
+cumple. Es un solo archivo sin dependencias: se copia tal cual a cada proyecto, junto con su paso
+en el CI:
+
+```yaml
+- name: Formato de pendientes
+  run: node .github/scripts/comprobar-pendientes.mjs
+```
+
+En local: `node .github/scripts/comprobar-pendientes.mjs` desde la raíz del repositorio.
 
 ## Historial de la norma
 
 - v1 (2026-10-25): primera versión, definida en Client Finder.
+- v1 (2026-10-26): añadidas las reglas de `doc` y `bloqueado-por`, y la comprobación en el CI.
