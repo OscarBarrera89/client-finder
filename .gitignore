@@ -79,3 +79,6 @@ yarn-error.log
 .claude/commands/save-session.md
 .claude/skills/laravel
 .claude/skills/php
+.claude/agents/php-reviewer.md
+.claude/commands/laravel-review.md
+.claude/commands/php-review.md
