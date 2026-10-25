@@ -48,6 +48,8 @@ Fuera:
 - Commits: 674113d (backend), 2b729ed (frontend), de9043f (arnés), 95cd551 (.gitignore),
   cbc5840 (formato) y el commit de documentación.
 
+- Rama subida a origin y pull request abierto: https://github.com/OscarBarrera89/client-finder/pull/1
+
 ## Next
 
-Decidir si se sube la rama y se abre el pull request hacia main.
+Revisar y fusionar el pull request #1 en main.

@@ -82,13 +82,15 @@ Bloqueado por:
   Añadidas skills `laravel` y `php`.
 - Fallo de rsc: detecta Python por `vendor/mockery/.../requirements.txt`. Skill `python` quitada;
   el agente `python-reviewer` queda (ligado al plan). Un `rsc sync` futuro podría volver a instalar
-  la skill `python`.
+  la skill `python`. Impacto bajo: no entra en git (está en `.gitignore`) y solo ocupa contexto y
+  puede activarse por error; si vuelve, `rsc uninstall python`.
 - [x] Unificar documentación: `docs/` movido a `02-DOCS/wiki/proyecto/` (25/10/2026).
 - [x] Constitución v1.0.0 ratificada (25/10/2026): `02-DOCS/wiki/sdd/constitution.md`.
 - [x] Quitado el paquete `bootstrap` (sin uso; los estilos son Tailwind).
 - [x] Commits del arnés y del trabajo pendiente en la rama `chore/arnes-rsc-y-documentacion`
-  (25/10/2026). Sin push ni pull request todavía.
-- [ ] Decidir si se sube la rama y se abre el pull request hacia `main`.
+  (25/10/2026).
+- [x] Rama subida y pull request abierto: https://github.com/OscarBarrera89/client-finder/pull/1
+- [ ] Revisar y fusionar el pull request #1 en `main`.
 
 ## Hecho
 
