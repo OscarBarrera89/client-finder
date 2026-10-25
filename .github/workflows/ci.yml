@@ -1,0 +1,125 @@
+# CI de Client Finder: calidad de código y tests contra los motores de BD del servidor.
+# Se ejecuta en cada pull request hacia main y en cada push a main.
+name: CI
+
+on:
+    pull_request:
+        branches: [main]
+    push:
+        branches: [main]
+
+concurrency:
+    group: ci-${{ github.ref }}
+    cancel-in-progress: true
+
+permissions:
+    contents: read
+
+jobs:
+    calidad:
+        name: Calidad (Pint, ESLint, Prettier, build)
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+
+            - uses: shivammathur/setup-php@v2
+              with:
+                  php-version: '8.2'
+                  tools: composer:v2
+                  coverage: none
+
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: '22'
+                  cache: npm
+
+            - run: composer install --no-interaction --prefer-dist --no-progress
+            - run: npm ci
+
+            - name: Pint
+              run: vendor/bin/pint --test
+            - name: ESLint
+              run: npx eslint .
+            - name: Prettier
+              run: npm run format:check
+            - name: Build
+              run: npm run build
+
+    tests:
+        name: Tests (${{ matrix.db }})
+        runs-on: ubuntu-latest
+        strategy:
+            fail-fast: false
+            matrix:
+                include:
+                    - db: sqlite
+                      database: database/ci.sqlite
+                      image: ''
+                    - db: mysql
+                      database: testing
+                      image: mysql:8.0
+                    - db: mariadb
+                      database: testing
+                      image: mariadb:10.11
+        env:
+            DB_CONNECTION: ${{ matrix.db }}
+            DB_DATABASE: ${{ matrix.database }}
+            DB_HOST: 127.0.0.1
+            DB_PORT: 3306
+            DB_USERNAME: root
+            DB_PASSWORD: password
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Arrancar ${{ matrix.db }}
+              if: matrix.image != ''
+              run: |
+                  docker run -d --name db -p 3306:3306 \
+                    -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=testing \
+                    ${{ matrix.image }}
+
+            - uses: shivammathur/setup-php@v2
+              with:
+                  php-version: '8.2'
+                  extensions: pdo_sqlite, pdo_mysql
+                  tools: composer:v2
+                  coverage: none
+
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: '22'
+                  cache: npm
+
+            - run: composer install --no-interaction --prefer-dist --no-progress
+            - run: npm ci
+
+            # Las páginas Inertia cargan el manifiesto de Vite: sin build, los tests fallan.
+            - run: npm run build
+
+            - name: Preparar .env
+              run: |
+                  cp .env.example .env
+                  php artisan key:generate
+
+            - name: Crear archivo SQLite
+              if: matrix.db == 'sqlite'
+              run: touch ${{ matrix.database }}
+
+            - name: Esperar a ${{ matrix.db }}
+              if: matrix.image != ''
+              run: |
+                  for i in $(seq 1 60); do
+                    mysqladmin ping -h 127.0.0.1 -P 3306 -uroot -ppassword --silent && exit 0
+                    sleep 2
+                  done
+                  docker logs db
+                  exit 1
+
+            - name: Migraciones (migrate, reset, migrate)
+              run: |
+                  php artisan migrate --force
+                  php artisan migrate:reset --force
+                  php artisan migrate --force
+
+            - name: Pest
+              run: vendor/bin/pest

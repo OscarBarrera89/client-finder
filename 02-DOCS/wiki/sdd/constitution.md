@@ -5,12 +5,12 @@ description: Los principios no negociables que obedece cada fase de rsc-sdd en C
 tags: [sdd, constitution]
 timestamp: 2026-10-25T16:00:00Z
 topic: sdd
-version: v1.0.0
+version: v1.0.1
 ---
 
 # client-finder — Constitución
 
-> Versión: v1.0.0 · Ratificada: 2026-10-25 · Última enmienda: 2026-10-25
+> Versión: v1.0.1 · Ratificada: 2026-10-25 · Última enmienda: 2026-10-25
 > Principios no negociables. Si uno se incumple, el trabajo está mal aunque funcione.
 > El detalle vive en `02-DOCS/wiki/proyecto/*`; aquí se ratifica el principio y se enlaza.
 
@@ -22,17 +22,19 @@ version: v1.0.0
 3. El código nuevo de la aplicación es `.js`/`.jsx`. `.ts`/`.tsx` solo en las primitivas que ya
    existen en `resources/js/components/ui/`. Detalle: [decisiones](../proyecto/03-decisiones.md).
 4. SQLite en desarrollo; el servidor usará MySQL/MariaDB. El acceso a datos es por Eloquent o
-   Query Builder, sin SQL propio de un motor concreto.
+   Query Builder, sin SQL propio de un motor concreto. Lo comprueba el CI
+   (`.github/workflows/ci.yml`) con SQLite, MySQL 8.0 y MariaDB 10.11.
 5. No se añade ningún paquete de Composer o npm sin decir por qué y sin confirmación del usuario.
    Los lockfiles (`composer.lock`, `package-lock.json`) se commitean.
 
 ## 2. Calidad
 
 6. `vendor/bin/pest` pasa entero antes de cada merge. Ningún test se salta ni se comenta para
-   ponerlo en verde.
+   ponerlo en verde. El CI lo ejecuta en cada pull request y no se fusiona en rojo.
 7. Cada cambio de comportamiento del backend llega con un test Pest de feature que lo cubre.
    No hay suelo de cobertura numérico (no hay driver de cobertura instalado).
-8. `./vendor/bin/pint --test`, `npm run lint` y `npm run format:check` terminan limpios.
+8. `./vendor/bin/pint --test`, `npm run lint` y `npm run format:check` terminan limpios
+   (job "Calidad" del CI).
    No hay comprobador de tipos (ni PHPStan ni TypeScript en código nuevo); añadirlo es enmienda MINOR.
 
 ## 3. Convenciones
@@ -109,3 +111,4 @@ Un cambio entra solo si se cumple todo:
 | 2026-10-25 | draft | Borrador generado por `rsc onboard`. | El suelo SDD necesita una constitución. |
 | 2026-10-25 | draft | Principios redactados desde CLAUDE.md, decisiones y código. | Fase `constitution`. |
 | 2026-10-25 | v1.0.0 | Ratificada por Oscar con los 24 principios. | Primera versión obligatoria antes de cualquier feature SDD. |
+| 2026-10-25 | v1.0.1 | Los principios 4, 6 y 8 nombran el CI que los comprueba. Excepción única al 12: la migración de pólizas se renombra a `2026_07_12_153328` (contenido idéntico). | Pólizas se creaba antes que sus tablas referenciadas y fallaba en MySQL/MariaDB; solo estaba aplicada en el SQLite local de desarrollo. Aprobado por Oscar. |

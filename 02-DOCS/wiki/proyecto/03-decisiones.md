@@ -69,6 +69,28 @@ Motivo:
 
 Una migración ya aplicada no se edita (constitución, principio 12), ni siquiera por formato.
 
+---
+
+Excepción única al principio 12: la migración de pólizas pasa de `2026_07_11_175802` a
+`2026_07_12_153328` (solo cambia el nombre del archivo; en el SQLite local se actualizó su fila en
+la tabla `migrations`, sin tocar datos).
+
+Motivo:
+
+Se creaba antes que compañías, ramos, tipos de vencimiento y estados, a los que apunta con claves
+foráneas. SQLite lo acepta, pero MySQL/MariaDB (el servidor) no. Solo estaba aplicada en local.
+
+---
+
+CI en GitHub Actions (`.github/workflows/ci.yml`) en cada pull request hacia `main`: Pint, ESLint,
+Prettier, build y Pest contra SQLite, MySQL 8.0 y MariaDB 10.11, con migrate → reset → migrate.
+No se fusiona un PR con el CI en rojo.
+
+Motivo:
+
+Comprobar antes de fusionar que todo funciona también con los motores del servidor. El repositorio
+es privado en plan gratuito: GitHub no puede bloquear el merge, así que la regla la aplica el agente.
+
 ## Convenciones
  - Las tablas llevarán el prefijo tbl_.
  - Los modelos estarán en singular (Cliente, Poliza, Compania, Ramo).
