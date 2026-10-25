@@ -55,6 +55,8 @@ Bloqueado por:
 - [ ] Elegir plan y contratar hosting.
 - [ ] Instalar y configurar servidor + base de datos.
 - [ ] Configurar el correo (para "recuperar contraseña").
+- [ ] En el servidor: `upload_max_filesize` y `post_max_size` de PHP de al menos 10M para subir el Excel.
+- [ ] Usar PHP 8.2, 8.3 u 8.4 en el servidor (OpenSpout 4 no declara soporte de 8.5).
 - [ ] Conectar el buscador (`BuscadorPage`) a `/api/search` cuando haya BD.
 
 ## 3. Restricción por IP de la oficina `[~]`
@@ -63,19 +65,16 @@ Bloqueado por:
 - Idea: empleados solo desde la IP de la oficina; el admin (jefe) desde cualquier sitio. No se sabe
   aún si la IP de la oficina es fija.
 
-## 4. Importar datos desde Excel `[ ]`
+## 4. Importar datos desde Excel `[~]`
 
-- Se puede hacer. Falta el Excel terminado.
-- Necesario: fila de encabezados + una fila de ejemplo con datos INVENTADOS.
-- Estado de la BD (25/10/2026): el esquema cubre todas las columnas documentadas del Excel. El
-  orden de migraciones ya funciona en MySQL/MariaDB (ver decisiones). Falta el importador, que debe:
-  agrupar filas por DNI (un cliente = varias pólizas), normalizar el DNI (mayúsculas, sin espacios
-  ni guiones), crear compañías y ramos a partir del nombre (exigen `codigo` único) y convertir las
-  fechas de Excel. Se puede programar ya con una fila inventada.
-- Orden recomendado: importador probado con datos inventados → hosting + subdominio (no hace falta
-  comprar dominio) → importar el Excel real en el servidor.
-- Por decidir: CSV (sin paquetes nuevos) o .xlsx directo (requiere `phpoffice/phpspreadsheet`, con
-  confirmación); comando o botón en la pantalla del admin.
+- [x] Importador .xlsx en el panel de admin ("Importar Excel"), con simulación, aceptar/descartar por
+  cliente y guardado todo o nada (25/10/2026). Spec y plan en `02-DOCS/wiki/sdd/`.
+- [x] Medido con 5.000 filas inventadas: simulación 0,9 s, importación 4,6 s, 65 MB.
+- [ ] Falta el Excel terminado. Cuando esté: comprobar que sus cabeceras coinciden con las que se
+  reconocen y probar con una copia en el servidor.
+- [ ] Probar la página en el navegador (los tests cubren el servidor, no la pantalla).
+- Orden recomendado: hosting + subdominio (no hace falta comprar dominio) → importar el Excel real
+  en el servidor.
 
 ## 5. Sesiones en local `[ ]`
 
@@ -101,6 +100,12 @@ Bloqueado por:
 - [x] CI en GitHub Actions: calidad + tests con SQLite, MySQL 8.0 y MariaDB 10.11 (25/10/2026).
 - [x] Corregido el orden de la migración de pólizas (fallaba en MySQL/MariaDB).
 - [x] Rutas de páginas de Inertia en minúsculas (los tests fallaban en Linux).
+
+## 7. Seguridad de dependencias `[ ]` — PRIORIDAD ALTA
+
+- `composer audit` (25/10/2026): 24 avisos en 6 paquetes. Críticos/altos en `laravel/framework`,
+  `guzzlehttp/guzzle` y `league/commonmark`. Resolver con `composer update` en una rama propia,
+  con el CI, antes de subir datos reales al servidor.
 
 ## Hecho
 

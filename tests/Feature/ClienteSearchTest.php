@@ -60,3 +60,30 @@ test('the dashboard can search clients by policy plate', function () {
         ->where('clientes.0.polizas.0.matricula', 'ABC123')
     );
 });
+
+test('the dashboard finds identificacion and matricula written with spaces or hyphens', function () {
+    $cliente = Cliente::create(['nombre' => 'Cliente Prueba', 'identificacion' => '00000001R', 'activo' => true]);
+    Poliza::create([
+        'cliente_id' => $cliente->id,
+        'compania_id' => Compania::create(['codigo' => 'ASEG', 'nombre' => 'Aseguradora Prueba', 'activo' => true])->id,
+        'ramo_id' => Ramo::create(['codigo' => 'AUTO', 'nombre' => 'Automóvil', 'activo' => true])->id,
+        'numero_poliza' => 'POL-1',
+        'matricula' => '1234ABC',
+        'activo' => true,
+    ]);
+
+    $this->actingAs(User::factory()->create());
+
+    foreach (['00000001-r', '1234-abc', '1234 ABC'] as $busqueda) {
+        $this->get('/dashboard?q='.urlencode($busqueda))
+            ->assertInertia(fn (AssertableInertia $page) => $page->where('clientes.0.identificacion', '00000001R'));
+    }
+});
+
+test('a dashboard search with only symbols does not return every client', function () {
+    Cliente::create(['nombre' => 'Cliente Prueba', 'identificacion' => '00000001R', 'activo' => true]);
+
+    $this->actingAs(User::factory()->create())
+        ->get('/dashboard?q=-')
+        ->assertInertia(fn (AssertableInertia $page) => $page->has('clientes', 0));
+});

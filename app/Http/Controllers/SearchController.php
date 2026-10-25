@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Importacion\Normalizador;
 use App\Models\Cliente;
 use App\Models\Poliza;
 use Illuminate\Http\Request;
@@ -26,10 +27,15 @@ class SearchController extends Controller
             ]);
         }
 
+        // DNI y matrícula se guardan normalizados (sin espacios ni guiones): se busca también así
+        $identificacion = Normalizador::identificacion($query);
+        $matricula = Normalizador::matricula($query);
+
         try {
             if ($type === 'poliza') {
                 $resultados = Poliza::where('numero_poliza', 'like', "%{$query}%")
                     ->orWhere('matricula', 'like', "%{$query}%")
+                    ->when($matricula !== '', fn ($q) => $q->orWhere('matricula', 'like', "%{$matricula}%"))
                     ->with('cliente', 'compania', 'ramo', 'estado')
                     ->limit(20)
                     ->get();
@@ -38,6 +44,7 @@ class SearchController extends Controller
                     ->orWhere('email', 'like', "%{$query}%")
                     ->orWhere('telefono', 'like', "%{$query}%")
                     ->orWhere('identificacion', 'like', "%{$query}%")
+                    ->when($identificacion !== '', fn ($q) => $q->orWhere('identificacion', 'like', "%{$identificacion}%"))
                     ->with('polizas.compania', 'polizas.ramo', 'polizas.estado')
                     ->limit(20)
                     ->get();
