@@ -2,12 +2,13 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
+ * @extends Factory<User>
  */
 class UserFactory extends Factory
 {
@@ -28,8 +29,30 @@ class UserFactory extends Factory
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
+            'rol' => User::ROL_EMPLEADO,
+            'activo' => true,
             'remember_token' => Str::random(10),
         ];
+    }
+
+    /**
+     * Usuario administrador (jefe).
+     */
+    public function admin(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'rol' => User::ROL_ADMIN,
+        ]);
+    }
+
+    /**
+     * Usuario desactivado: no puede iniciar sesión.
+     */
+    public function inactivo(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'activo' => false,
+        ]);
     }
 
     /**
