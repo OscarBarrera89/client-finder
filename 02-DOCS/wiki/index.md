@@ -13,7 +13,7 @@ Documentación de Client Finder: contexto, base de datos, decisiones, arquitectu
 | [Decisiones](proyecto/03-decisiones.md) | Decisiones del proyecto con su motivo, y convenciones | 2026-10-25 |
 | [Arquitectura](proyecto/04-arquitectura.md) | Stack, rutas, roles, las dos búsquedas, importador y frontend | 2026-10-25 |
 | [Instalación](proyecto/05-instalacion.md) | Instalar, arrancar y comprobar en local | 2026-10-25 |
-| [Pendientes](proyecto/pendientes.md) | Lo pendiente, lo decidido y lo hecho | 2026-10-25 |
+| [Pendientes](proyecto/pendientes.md) | Fichas CF-NNN: lo pendiente, lo decidido y lo hecho (formato v1) | 2026-10-25 |
 
 ## sdd
 
@@ -35,6 +35,7 @@ Documentos de feature (vía rápida).
 | [CI en GitHub Actions](ftd/ci-github-actions.md) | Tests con SQLite, MySQL y MariaDB en cada PR; orden de migraciones corregido | 2026-10-25 |
 | [Actualizar dependencias](ftd/actualizar-dependencias.md) | composer update y npm audit fix: 0 avisos; prueba del importador en navegador | 2026-10-25 |
 | [Auditoría de la wiki](ftd/auditoria-wiki.md) | Wiki corregida contra el código; Python fuera del arnés y vigilado en el CI | 2026-10-25 |
+| [Formato de pendientes](ftd/formato-pendientes.md) | Norma común de pendientes y paso de `pendientes.md` al formato v1 | 2026-10-25 |
 
 ## harness
 
@@ -45,3 +46,4 @@ Instalación y perfil del arnés rsc.
 | [Perfil de usuario](harness/user-profile.md) | Registro y preferencias del usuario | 2026-10-25 |
 | [Plan de instalación](harness/installation-plan.md) | Plan aceptado de rsc onboard | 2026-10-25 |
 | [Decisiones del arnés](harness/decisions.md) | Decisiones de instalación | 2026-10-25 |
+| [Formato de pendientes](harness/formato-pendientes.md) | Norma común (v1) de `pendientes.md` para todos los proyectos | 2026-10-25 |

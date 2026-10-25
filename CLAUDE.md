@@ -18,7 +18,7 @@ Background and rationale docs live in `02-DOCS/wiki/proyecto/` — they are more
 - `02-DOCS/wiki/proyecto/03-decisiones.md`
 - `02-DOCS/wiki/proyecto/04-arquitectura.md`
 - `02-DOCS/wiki/proyecto/05-instalacion.md`
-- `02-DOCS/wiki/proyecto/pendientes.md` — open items, maintained by Claude Code
+- `02-DOCS/wiki/proyecto/pendientes.md` — open items, maintained by Claude Code (format: `02-DOCS/wiki/harness/formato-pendientes.md`, shared by all rsc projects)
 
 ## Knowledge map
 

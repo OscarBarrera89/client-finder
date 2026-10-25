@@ -1,11 +1,21 @@
-# Pendientes - Client Finder
+---
+proyecto: client-finder
+prefijo: CF
+formato: 1
+actualizado: 2026-10-25
+---
+# Pendientes — Client Finder
 
-Archivo mantenido por Claude Code. Se actualiza cuando algo se decide, se hace o cambia.
-Última actualización: 25/10/2026
+Mantenido por Claude Code. Formato: `02-DOCS/wiki/harness/formato-pendientes.md`.
 
-Leyenda: `[ ]` pendiente · `[~]` decidido en parte / en espera · `[x]` hecho
+## CF-001 · Alta y edición de pólizas y clientes
 
-## 1. Alta y edición de pólizas y clientes `[~]`
+- estado: bloqueado
+- prioridad: media
+- tipo: feature
+- bloqueado-por: CF-002
+- doc: —
+- actualizado: 2026-10-25
 
 Decidido:
 
@@ -20,23 +30,26 @@ Decidido:
   - En el detalle del cliente aparece marcada como "Dada de baja".
 - Compañías, ramos y demás datos que completan una póliza se pueden añadir y modificar
   (solo desactivar, nunca borrar).
-- Permisos (25/10/2026): en principio, **todos los usuarios (admin y empleado)** pueden dar de alta
+- Permisos (2026-10-25): en principio, **todos los usuarios (admin y empleado)** pueden dar de alta
   y editar pólizas, clientes y catálogos. Puede cambiar más adelante.
 - Campos obligatorios (de momento, puede cambiar):
   - Cliente: nombre y DNI/NIE/CIF (único).
   - Póliza: n.º de póliza (único), compañía y ramo.
   - El resto, opcionales.
 
-Por decidir:
+Bloqueado porque el buscador todavía lee datos de prueba (`resources/js/data/clientesDemo.js`): lo
+que se cree en la BD no se vería hasta conectar `/api/search` (CF-002).
 
 - [ ] Confirmar campos obligatorios definitivos.
 
-Bloqueado por:
+## CF-002 · Base de datos y servidor
 
-- Punto 2 (base de datos): el buscador todavía lee datos de prueba
-  (`resources/js/data/clientesDemo.js`); lo que se cree en la BD no se vería.
-
-## 2. Base de datos y servidor `[ ]`
+- estado: pendiente
+- prioridad: alta
+- tipo: infra
+- bloqueado-por: —
+- doc: —
+- actualizado: 2026-10-25
 
 - El usuario no quiere montar la BD en local: la quiere en el servidor.
 - Proveedor: Hostinger (preferencia del usuario, le han dado buenas referencias).
@@ -59,61 +72,94 @@ Bloqueado por:
 - [ ] Usar PHP 8.2, 8.3 u 8.4 en el servidor (OpenSpout 4 no declara soporte de 8.5).
 - [ ] Conectar el buscador (`BuscadorPage`) a `/api/search` cuando haya BD.
 
-## 3. Restricción por IP de la oficina `[~]`
+## CF-003 · Restricción por IP de la oficina
 
-- APARCADO hasta que el usuario lo comente.
-- Idea: empleados solo desde la IP de la oficina; el admin (jefe) desde cualquier sitio. No se sabe
-  aún si la IP de la oficina es fija.
+- estado: en-espera
+- prioridad: baja
+- tipo: feature
+- bloqueado-por: —
+- doc: —
+- actualizado: 2026-10-25
 
-## 4. Importar datos desde Excel `[~]`
+Aparcado hasta que el usuario lo comente. Idea: empleados solo desde la IP de la oficina; el admin
+(jefe) desde cualquier sitio. No se sabe aún si la IP de la oficina es fija.
 
-- [x] Importador .xlsx en el panel de admin ("Importar Excel"), con simulación, aceptar/descartar por
-  cliente y guardado todo o nada (25/10/2026). Spec y plan en `02-DOCS/wiki/sdd/`.
-- [x] Medido con 5.000 filas inventadas: simulación 0,9 s, importación 4,6 s, 65 MB.
-- [ ] Falta el Excel terminado. Cuando esté: comprobar que sus cabeceras coinciden con las que se
-  reconocen y probar con una copia en el servidor.
-- [x] Probada en el navegador con datos inventados y plurales corregidos (25/10/2026).
-- Orden recomendado: hosting + subdominio (no hace falta comprar dominio) → importar el Excel real
-  en el servidor.
+## CF-004 · Importar los datos reales desde Excel
 
-## 5. Sesiones en local `[ ]`
+- estado: bloqueado
+- prioridad: alta
+- tipo: feature
+- bloqueado-por: CF-002, Excel terminado
+- doc: `02-DOCS/wiki/sdd/specs/importador-excel.md`
+- actualizado: 2026-10-25
 
-- El `.env` local usa `SESSION_DRIVER=cookie`. Recomendado: `database`.
-- Pendiente de que el usuario confirme el cambio.
+El importador ya está hecho y probado (ver `## Hecho`). Falta cargar el Excel real. Orden
+recomendado: hosting + subdominio (no hace falta comprar dominio) → importar el Excel real en el
+servidor.
 
-## 6. Arnés rsc (rsc-harness 3.3.1) `[~]`
+- [ ] Recibir el Excel terminado y comprobar que sus cabeceras coinciden con las que se reconocen.
+- [ ] Probar con una copia en el servidor.
+- [ ] Importar los datos reales.
 
-- Instalado el 25/10/2026 para Claude Code (flujo: ramas + PR; `main` cerrado para el agente).
-  Desactivados: knowledge-sync, permisos git automáticos y auto-update (`.rsc/.no-auto-update`).
-  Añadidas skills `laravel` y `php`.
-- [x] Fallo de rsc (detecta Python por `vendor/mockery/.../requirements.txt`) resuelto en este
-  proyecto (25/10/2026): skill `python` y agente `python-reviewer` quitados, y el CI falla si
-  vuelven a `.rsc.json`. Actualizar el arnés con `rsc sync`, nunca `rsc onboard`.
-- [ ] Avisar del fallo al autor de rsc (no ignora `vendor/` ni reconoce `composer.json`), para
-  que no pase en los demás proyectos PHP. Pendiente de que el usuario lo autorice.
-- [x] Unificar documentación: `docs/` movido a `02-DOCS/wiki/proyecto/` (25/10/2026).
-- [x] Constitución v1.0.0 ratificada (25/10/2026): `02-DOCS/wiki/sdd/constitution.md`.
-- [x] Quitado el paquete `bootstrap` (sin uso; los estilos son Tailwind).
-- [x] Commits del arnés y del trabajo pendiente en la rama `chore/arnes-rsc-y-documentacion`
-  (25/10/2026).
-- [x] Rama subida y pull request abierto: https://github.com/OscarBarrera89/client-finder/pull/1
-- [x] Pull request #1 fusionado en `main` (25/10/2026).
-- [x] Wiki auditada contra el código y corregida; quitado `react-router-dom` sin uso (25/10/2026).
-- [x] CI en GitHub Actions: calidad + tests con SQLite, MySQL 8.0 y MariaDB 10.11 (25/10/2026).
-- [x] Corregido el orden de la migración de pólizas (fallaba en MySQL/MariaDB).
-- [x] Rutas de páginas de Inertia en minúsculas (los tests fallaban en Linux).
+## CF-005 · Sesiones en local
 
-## 7. Seguridad de dependencias `[x]`
+- estado: en-espera
+- prioridad: baja
+- tipo: infra
+- bloqueado-por: —
+- doc: —
+- actualizado: 2026-10-25
 
-- [x] 25/10/2026: `composer update` y `npm audit fix` → 0 avisos en Composer y 0 en npm. Repetir
-  `composer audit` y `npm audit` periódicamente (el CI no lo hace todavía).
+El `.env` local usa `SESSION_DRIVER=cookie`. Recomendado: `database` (es lo que trae
+`.env.example`). Pendiente de que el usuario confirme el cambio.
+
+## CF-006 · Arnés rsc
+
+- estado: en-espera
+- prioridad: baja
+- tipo: harness
+- bloqueado-por: —
+- doc: `02-DOCS/wiki/ftd/auditoria-wiki.md`
+- actualizado: 2026-10-25
+
+rsc-harness 3.3.1 instalado el 2026-10-25 para Claude Code (flujo: ramas + PR; `main` cerrado para
+el agente). Desactivados: knowledge-sync, permisos git automáticos y auto-update. Añadidas las skills
+`laravel` y `php`.
+
+Fallo de rsc: no ignora `vendor/` al escanear y confunde el proyecto con Python. Resuelto aquí
+(skill `python` y agente `python-reviewer` quitados; el CI falla si vuelven). Actualizar el arnés con
+`rsc sync`, nunca `rsc onboard`.
+
+- [ ] El usuario publica el aviso del fallo en github.com/ericrisco/rsc-harness/issues.
+
+## CF-008 · Auditoría periódica de dependencias
+
+- estado: pendiente
+- prioridad: baja
+- tipo: infra
+- bloqueado-por: —
+- doc: —
+- actualizado: 2026-10-25
+
+Repetir `composer audit` y `npm audit` periódicamente. El CI no lo hace todavía.
+
+- [ ] Decidir si se añade al CI (y con qué frecuencia) o se hace a mano.
 
 ## Hecho
 
-- [x] Login obligatorio (buscador, dashboard y `/api/search`).
-- [x] Roles admin/empleado y pantalla de gestión de usuarios.
-- [x] Registro público eliminado; los empleados no pueden borrar su cuenta.
-- [x] Páginas de acceso y "Mi cuenta" pasadas a .jsx.
-- [x] Tema claro/oscuro guardado en la cuenta de cada usuario.
-- [x] Usuarios de ejemplo (solo local) en `database/seeders/DatabaseSeeder.php`.
-- [x] Mensajes de error y validación en español (`lang/es`, `APP_LOCALE=es`).
+- CF-007 · Seguridad de dependencias — 2026-10-25 — `composer update` y `npm audit fix`: 0 avisos en Composer y npm. Doc: `02-DOCS/wiki/ftd/actualizar-dependencias.md`
+- CF-009 · Importador de Excel — 2026-10-25 — en el panel de admin, con simulación, aceptar/descartar por cliente y guardado todo o nada. Medido con 5.000 filas inventadas (simulación 0,9 s, importación 4,6 s, 65 MB) y probado en el navegador. Doc: `02-DOCS/wiki/sdd/plans/importador-excel.md`
+- CF-010 · Unificar documentación y constitución — 2026-10-25 — `docs/` movido a `02-DOCS/wiki/proyecto/`; constitución v1.0.0 ratificada; quitado `bootstrap`. Doc: `02-DOCS/wiki/ftd/arnes-rsc-y-documentacion.md`
+- CF-011 · CI en GitHub Actions — 2026-10-25 — calidad + tests con SQLite, MySQL 8.0 y MariaDB 10.11; corregido el orden de la migración de pólizas; rutas de Inertia en minúsculas. Doc: `02-DOCS/wiki/ftd/ci-github-actions.md`
+- CF-012 · Auditoría de la wiki — 2026-10-25 — wiki corregida contra el código; quitado `react-router-dom`; Python fuera del arnés y vigilado en el CI. Doc: `02-DOCS/wiki/ftd/auditoria-wiki.md`
+- CF-013 · Formato común de pendientes — 2026-10-25 — este archivo pasa al formato v1. Doc: `02-DOCS/wiki/ftd/formato-pendientes.md`
+
+Antes del formato:
+
+- Login obligatorio (buscador, dashboard y `/api/search`).
+- Roles admin/empleado y pantalla de gestión de usuarios.
+- Registro público eliminado; los empleados no pueden borrar su cuenta.
+- Páginas de acceso y "Mi cuenta" pasadas a .jsx.
+- Tema claro/oscuro guardado en la cuenta de cada usuario.
+- Usuarios de ejemplo (solo local) en `database/seeders/DatabaseSeeder.php`.
+- Mensajes de error y validación en español (`lang/es`, `APP_LOCALE=es`).
